@@ -1,0 +1,49 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "Implements the action for 'login' and composes the screen.",
+  "main": "index.js",
+  "scripts": {
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && npm t && npm run build-only",
+    "build-only": "concurrently \"rm -rf dist coverage\" \"npm run webpack --buildType=js --ignoreClean\" \"npm run webpack --ignoreClean\"",
+    "linux-build-only": "export NODE_OPTIONS=--openssl-legacy-provider && concurrently \"rm -rf dist coverage\" \"npm run webpack --buildType=js --ignoreClean\" \"npm run webpack --ignoreClean\"",
+    "webpack": "webpack --config ./config/webpack.config.js -p",
+    "watch": "webpack --config ./config/webpack.config.js -d --watch",
+    "test": "npm run ts:test",
+    "rollup:build": "rollup -c --bundleConfigAsCjs",
+    "rollup:dev": "rollup -c -w --bundleConfigAsCjs",
+    "js:build": "SET NODE_OPTIONS=--openssl-legacy-provider && npm run webpack --buildType=js",
+    "linux:js:build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run webpack --buildType=js",
+    "js:watch": "SET NODE_OPTIONS=--openssl-legacy-provider && npm run watch --buildType=js",
+    "js:test": "mocha \"./test/**/*.test.js\"",
+    "js:test:watch": "nodemon -e js -x npm run js:test",
+    "ts:build": "SET NODE_OPTIONS=--openssl-legacy-provider && npm run webpack",
+    "ts:watch": "SET NODE_OPTIONS=--openssl-legacy-provider && npm run watch",
+    "ts:test": "ts-mocha \"./admin/test/**/*.spec.ts\" \"./editor/test/**/*.spec.ts\"",
+    "ts:test:watch": "ts-mocha \"./admin/test/**/*.spec.ts\" \"./editor/test/**/*.spec.ts\" --watch --watch-extensions ts",
+    "ts:test:editor": "ts-mocha \"./editor/test/**/*.spec.ts\""
+  },
+  "nyc": {
+    "temp-directory": "./node_modules/coverage/.nyc_output",
+    "extension": [
+      ".ts",
+      ".tsx",
+      ".js"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/*.test.js",
+      "**/mock.js",
+      "**/TestUtils.ts",
+      "**/node_modules/**"
+    ],
+    "reporter": [
+      "text"
+    ],
+    "all": false
+  },
+  "keywords": [],
+  "author": "Yeeun",
+  "license": "ISC"
+}

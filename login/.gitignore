@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### svelte ###
+/node_modules/
+/public/build/
+
+.DS_Store
